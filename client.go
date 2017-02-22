@@ -21,20 +21,17 @@ type Client struct {
 }
 
 // New create a new client
-func New(APIHostBase string, APIKey string) (c *Client) {
+func New(APIHostBase string, APIKey string) *Client {
+	c := new(Client)
 	c.APIHostBase = APIHostBase
 	c.APIKey = APIKey
-	return
+	return c
 }
 
 // Initiate a login or sign request
-func (c *Client) Initiate(sameDevice bool, config *ZSInitConfig) (*ZSInitRespBody, error) {
+func (c *Client) Initiate(method string, config ZSInitConfig) (*ZSInitRespBody, error) {
 	var url string
-	if sameDevice {
-		url = c.APIHostBase + "/sbid"
-	} else {
-		url = c.APIHostBase + "/sbid-another"
-	}
+	url = c.APIHostBase + "/" + method
 	configB, err := json.Marshal(config)
 	if err != nil {
 		return nil, err

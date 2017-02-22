@@ -35,7 +35,7 @@ type ZSVerifyRespBody struct {
 		LastName       string `json:"LastName"`
 		PersonalNumber string `json:"PersonalNumber"`
 		DateOfBirth    string `json:"DateOfBirth"`
-		Age            string `json:"Age"`
+		Age            int    `json:"Age"`
 	} `json:"identity"`
 	Signature string `json:"signature"`
 }
