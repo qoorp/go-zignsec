@@ -39,3 +39,34 @@ type ZSVerifyRespBody struct {
 	} `json:"identity"`
 	Signature string `json:"signature"`
 }
+
+// CollectResponse defines the response Body of the S2S collect request
+type CollectResponse struct {
+	ID     string `json:"id"`
+	Errors []struct {
+		Code        string `json:"code"`
+		Description string `json:"description"`
+	} `json:"errors"`
+	Status string `json:"progressStatus"`
+	User   struct {
+		FirstName      string `json:"givenName"`
+		LastName       string `json:"surname"`
+		Name           string `json:"name"`
+		PersonalNumber string `json:"personalNumber"`
+		NotBefore      string `json:"notBefore"`
+		NotAfter       string `json:"notAfter"`
+	} `json:"userInfo"`
+	Signature string `json:"signature"`
+	OCSP      string `json:"ocspResponse"`
+}
+
+// InitResponse defines the response Body of the S2S init request
+type InitResponse struct {
+	ID     string `json:"id"`
+	Errors []struct {
+		Code        string `json:"code"`
+		Description string `json:"description"`
+	} `json:"errors"`
+	Order     string `json:"orderRef"`
+	AutoStart string `json:"autoStartToken"`
+}
