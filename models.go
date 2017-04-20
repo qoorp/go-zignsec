@@ -1,6 +1,10 @@
 package zignsec
 
 // ZSInitConfig defines the configuration which are sent along with the init request
+// UserNonVisibleData is signed, if present. UserVisibleData is then only for user guidance.
+// Both must be base64 encoded.
+// If decoded UserVisibleData contains certain bytes (integer value > 127?),
+// Init() will fail with INVALID_PARAMETERS.
 type ZSInitConfig struct {
 	Personalnumber     string `json:"personalnumber,omitempty"`
 	UserVisibleData    string `json:"userVisibleData,omitempty"`
