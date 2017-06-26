@@ -44,6 +44,15 @@ type ZSVerifyRespBody struct {
 	Signature string `json:"signature"`
 }
 
+const (
+	// CollectProgressStatusComplete completed and validated
+	CollectProgressStatusComplete = "COMPLETE"
+	// CollectProgressStatusUserSign signed and validated
+	CollectProgressStatusUserSign = "USER_SIGN"
+	// CollectProgressStatusOutstanding waiting for user to complete login
+	CollectProgressStatusOutstanding = "OUTSTANDING_TRANSACTION"
+)
+
 // CollectResponse defines the response Body of the S2S collect request
 type CollectResponse struct {
 	ID     string `json:"id"`
@@ -51,14 +60,15 @@ type CollectResponse struct {
 		Code        string `json:"code"`
 		Description string `json:"description"`
 	} `json:"errors"`
-	Status string `json:"progressStatus"`
-	User   struct {
-		FirstName      string `json:"givenName"`
-		LastName       string `json:"surname"`
+	ProgressStatus string `json:"progressStatus"`
+	UserInfo       struct {
+		GivenName      string `json:"givenName"`
+		Surname        string `json:"surname"`
 		Name           string `json:"name"`
 		PersonalNumber string `json:"personalNumber"`
 		NotBefore      string `json:"notBefore"`
 		NotAfter       string `json:"notAfter"`
+		IPAddress      string `json:"ipAddress"`
 	} `json:"userInfo"`
 	Signature string `json:"signature"`
 	OCSP      string `json:"ocspResponse"`
@@ -71,6 +81,6 @@ type InitResponse struct {
 		Code        string `json:"code"`
 		Description string `json:"description"`
 	} `json:"errors"`
-	Order     string `json:"orderRef"`
-	AutoStart string `json:"autoStartToken"`
+	OrderRef       string `json:"orderRef"`
+	AutoStartToken string `json:"autoStartToken"`
 }
