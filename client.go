@@ -1,5 +1,8 @@
 package zignsec
 
+// This is an interface to http://docs.zignsec.com/api/web-based/
+
+
 import (
 	"bytes"
 	"encoding/json"
@@ -14,13 +17,13 @@ const (
 	APIHostBaseTest = "https://test.zignsec.com/v2/eid"
 )
 
-// Client is a zignsec client
+// Client is a Zignsec web-based client.
 type Client struct {
 	APIHostBase string
 	APIKey      string
 }
 
-// New create a new client
+// New create a new Client
 func New(APIHostBase string, APIKey string) *Client {
 	c := new(Client)
 	c.APIHostBase = APIHostBase

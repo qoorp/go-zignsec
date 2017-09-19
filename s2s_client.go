@@ -1,4 +1,5 @@
 // Server to server (S2S) API from Zignsec
+// http://docs.zignsec.com/api/s2s/
 
 package zignsec
 
@@ -22,7 +23,7 @@ type S2SClient struct {
 	key     string
 }
 
-// NewS2SClient create a new client.
+// NewS2SClient create a new server to server client.
 // Key is the Zignsec Authorization.
 func NewS2SClient(baseURL string, key string) *S2SClient {
 	result := S2SClient{baseURL: baseURL, key: key}
