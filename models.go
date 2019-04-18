@@ -46,12 +46,16 @@ type ZSVerifyRespBody struct {
 }
 
 const (
-	// CollectProgressStatusComplete completed and validated
-	CollectProgressStatusComplete = "COMPLETE"
-	// CollectProgressStatusUserSign signed and validated
-	CollectProgressStatusUserSign = "USER_SIGN"
-	// CollectProgressStatusOutstanding waiting for user to complete login
+	// CollectProgressStatusOutstanding ...
 	CollectProgressStatusOutstanding = "OUTSTANDING_TRANSACTION"
+	// CollectPorgressStatusNoClient ...
+	CollectPorgressStatusNoClient = "NO_CLIENT"
+	// CollectPorgressStatusStarted ...
+	CollectPorgressStatusStarted = "STARTED"
+	// CollectProgressStatusUserSign ...
+	CollectProgressStatusUserSign = "USER_SIGN"
+	// CollectProgressStatusComplete ...
+	CollectProgressStatusComplete = "COMPLETE"
 )
 
 // CollectResponse defines the response Body of S2S Collect()

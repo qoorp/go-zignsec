@@ -2,7 +2,6 @@ package zignsec
 
 // This is an interface to http://docs.zignsec.com/api/web-based/
 
-
 import (
 	"bytes"
 	"encoding/json"
