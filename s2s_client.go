@@ -34,10 +34,10 @@ func NewS2SClient(baseURL string, key string) *S2SClient {
 // Order is from the Init() response.
 // The guidelines recommend polling for results every 2 seconds.
 // When the response Status is COMPLETE, then further use of Collect() will receive an error.
-func (c *S2SClient) Collect(order string) (*CollectResponse, error) {
+func (c *S2SClient) Collect(orderRef string) (*CollectResponse, error) {
 	var result CollectResponse
 
-	url := c.baseURL + "/Collect?orderRef=" + order
+	url := c.baseURL + "/Collect?orderRef=" + orderRef
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
@@ -88,4 +88,32 @@ func (c *S2SClient) Init(method string, config ZSInitConfig) (*InitResponse, err
 		return nil, err
 	}
 	return &result, nil
+}
+
+// Cancel a login or signature
+func (c *S2SClient) Cancel(orderRef string) (*ZSCancelResponse, error) {
+	url := c.baseURL + "/cancel"
+	cancelBody := ZSCancelBody{OrderRef: orderRef}
+	body, err := json.Marshal(cancelBody)
+	req, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(body))
+	if err != nil {
+		return nil, err
+	}
+	setHeaders(req, c.key, "application/json")
+	var httpClient http.Client
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	resp.Body.Close()
+	var response ZSCancelResponse
+	err = json.Unmarshal(b, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
 }
