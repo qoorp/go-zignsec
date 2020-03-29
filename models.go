@@ -45,6 +45,20 @@ type ZSVerifyRespBody struct {
 	Signature string `json:"signature"`
 }
 
+// ZSCancelBody is used when canceling a pending auth/sign request
+type ZSCancelBody struct {
+	OrderRef string `json:"orderRef"`
+}
+
+// ZSCancelResponse defines the response Body of S2S Cancel()
+type ZSCancelResponse struct {
+	ID     string `json:"id"`
+	Errors []struct {
+		Code        string `json:"code"`
+		Description string `json:"description"`
+	} `json:"errors"`
+}
+
 const (
 	// CollectProgressStatusOutstanding ...
 	CollectProgressStatusOutstanding = "OUTSTANDING_TRANSACTION"
