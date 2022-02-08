@@ -31,9 +31,8 @@ func New(APIHostBase string, APIKey string) *Client {
 }
 
 // Initiate a login or sign request
-func (c *Client) Initiate(method string, config ZSInitConfig) (*ZSInitRespBody, error) {
-	var url string
-	url = c.APIHostBase + "/" + method
+func (c *Client) Initiate(method string, config ZWInitConfig) (*ZWInitRespBody, error) {
+	url := c.APIHostBase + "/" + method
 	configB, err := json.Marshal(config)
 	if err != nil {
 		return nil, err
@@ -53,7 +52,7 @@ func (c *Client) Initiate(method string, config ZSInitConfig) (*ZSInitRespBody, 
 		return nil, err
 	}
 	resp.Body.Close()
-	var response ZSInitRespBody
+	var response ZWInitRespBody
 	err = json.Unmarshal(b, &response)
 	if err != nil {
 		return nil, err
@@ -62,7 +61,7 @@ func (c *Client) Initiate(method string, config ZSInitConfig) (*ZSInitRespBody, 
 }
 
 // Verify a login or signature
-func (c *Client) Verify(uuid string) (*ZSVerifyRespBody, error) {
+func (c *Client) Verify(uuid string) (*ZWVerifyRespBody, error) {
 	url := c.APIHostBase + "/" + uuid
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -79,7 +78,7 @@ func (c *Client) Verify(uuid string) (*ZSVerifyRespBody, error) {
 		return nil, err
 	}
 	resp.Body.Close()
-	var response ZSVerifyRespBody
+	var response ZWVerifyRespBody
 	err = json.Unmarshal(b, &response)
 	if err != nil {
 		return nil, err

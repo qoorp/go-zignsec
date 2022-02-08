@@ -1,5 +1,5 @@
 // Server to server (S2S) API from Zignsec
-// http://docs.zignsec.com/api/s2s/
+// https://docs.zignsec.com/api/v2/s2s/
 
 package zignsec
 
@@ -34,8 +34,8 @@ func NewS2SClient(baseURL string, key string) *S2SClient {
 // Order is from the Init() response.
 // The guidelines recommend polling for results every 2 seconds.
 // When the response Status is COMPLETE, then further use of Collect() will receive an error.
-func (c *S2SClient) Collect(orderRef string) (*CollectResponse, error) {
-	var result CollectResponse
+func (c *S2SClient) Collect(orderRef string) (*ZSCollectResponse, error) {
+	var result ZSCollectResponse
 
 	url := c.baseURL + "/Collect?orderRef=" + orderRef
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -59,8 +59,8 @@ func (c *S2SClient) Collect(orderRef string) (*CollectResponse, error) {
 
 // Init a authenticate or sign request.
 // Use Collect() to get the answer afterwards.
-func (c *S2SClient) Init(method string, config ZSInitConfig) (*InitResponse, error) {
-	var result InitResponse
+func (c *S2SClient) Init(method string, config ZSInitConfig) (*ZSInitResponse, error) {
+	var result ZSInitResponse
 
 	url := c.baseURL + "/" + method
 	configJSON, err := json.Marshal(config)
@@ -95,6 +95,9 @@ func (c *S2SClient) Cancel(orderRef string) (*ZSCancelResponse, error) {
 	url := c.baseURL + "/cancel"
 	cancelBody := ZSCancelBody{OrderRef: orderRef}
 	body, err := json.Marshal(cancelBody)
+	if err != nil {
+		return nil, err
+	}
 	req, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(body))
 	if err != nil {
 		return nil, err
