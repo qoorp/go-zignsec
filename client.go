@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -49,6 +50,7 @@ func (c *Client) Initiate(method string, config ZWInitConfig) (*ZWInitRespBody, 
 	}
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		log.Println("Error response body:", string(b))
 		return nil, err
 	}
 	resp.Body.Close()
@@ -75,6 +77,7 @@ func (c *Client) Verify(uuid string) (*ZWVerifyRespBody, error) {
 	}
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		log.Println("Error response body:", string(b))
 		return nil, err
 	}
 	resp.Body.Close()

@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -50,6 +51,7 @@ func (c *S2SClient) Collect(orderRef string) (*ZSCollectResponse, error) {
 	}
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		log.Println("Error response body:", string(b))
 		return nil, err
 	}
 	resp.Body.Close()
@@ -79,6 +81,7 @@ func (c *S2SClient) Init(method string, config ZSInitConfig) (*ZSInitResponse, e
 	}
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		log.Println("Error response body:", string(b))
 		return nil, err
 	}
 	resp.Body.Close()
@@ -110,6 +113,7 @@ func (c *S2SClient) Cancel(orderRef string) (*ZSCancelResponse, error) {
 	}
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		log.Println("Error response body:", string(b))
 		return nil, err
 	}
 	resp.Body.Close()
